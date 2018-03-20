@@ -7,20 +7,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import br.usjt.arqsw.entity.Fila;
+
 /**
  * 
  * @author Otávio Augusto Soares Costa - 816118924
  *
  */
+@Repository
 public class FilaDAO {
+
+	private Connection conn;
+
+	@Autowired
+	public FilaDAO(DataSource dataSource) throws IOException {
+		try {
+			this.conn = dataSource.getConnection();
+		} catch (SQLException e) {
+			throw new IOException(e);
+		}
+	}
 
 	public ArrayList<Fila> listarFilas() throws IOException {
 		String query = "select id_fila, nm_fila from fila";
 		ArrayList<Fila> lista = new ArrayList<>();
-		try (Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement pst = conn.prepareStatement(query);
-				ResultSet rs = pst.executeQuery();) {
+		try (PreparedStatement pst = conn.prepareStatement(query); ResultSet rs = pst.executeQuery();) {
 
 			while (rs.next()) {
 				Fila fila = new Fila();
@@ -38,8 +54,7 @@ public class FilaDAO {
 	public Fila carregar(int id) throws IOException {
 		String query = "select * from fila where id_fila = ?";
 		Fila fila = new Fila();
-		try (Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement pst = conn.prepareStatement(query);) {
+		try (PreparedStatement pst = conn.prepareStatement(query)) {
 			pst.setInt(1, id);
 			try (ResultSet rs = pst.executeQuery();) {
 				if (rs.next()) {

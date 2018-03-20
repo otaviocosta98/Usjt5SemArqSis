@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,14 +25,11 @@ import br.usjt.arqsw.service.FilaService;
 @Controller
 public class ManterChamadosController {
 
+	@Autowired
 	private FilaService filaService;
 
+	@Autowired
 	private ChamadoService chamadoService;
-
-	public ManterChamadosController() {
-		filaService = new FilaService();
-		chamadoService = new ChamadoService();
-	}
 
 	/**
 	 * 

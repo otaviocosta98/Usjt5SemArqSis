@@ -11,6 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import br.usjt.arqsw.entity.Chamado;
 import br.usjt.arqsw.entity.Fila;
 
@@ -19,13 +24,24 @@ import br.usjt.arqsw.entity.Fila;
  * @author Otávio Augusto Soares Costa - 816118924
  *
  */
+@Repository
 public class ChamadoDAO {
+
+	private Connection conn;
+
+	@Autowired
+	public ChamadoDAO(DataSource dataSource) throws IOException {
+		try {
+			this.conn = dataSource.getConnection();
+		} catch (SQLException e) {
+			throw new IOException(e);
+		}
+	}
 
 	public ArrayList<Chamado> listarChamados(Fila fila) throws IOException {
 		String query = "select * from fila f left join chamado c on c.id_fila = f.id_fila where c.id_fila = ?";
 		ArrayList<Chamado> chamados = new ArrayList<>();
-		try (Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement pst = conn.prepareStatement(query);) {
+		try (PreparedStatement pst = conn.prepareStatement(query)) {
 			pst.setInt(1, fila.getId());
 			try (ResultSet rs = pst.executeQuery();) {
 				while (rs.next()) {
@@ -50,7 +66,7 @@ public class ChamadoDAO {
 	public int novoChamado(Chamado chamado) throws IOException {
 		String query = "insert into chamado(descricao, status, dt_abertura, id_fila) values (?, ?, ?, ?)";
 		int numeroChamado = -1;
-		try (Connection conn = ConnectionFactory.getConnection();) {
+		try {
 			PreparedStatement pst = conn.prepareStatement(query);
 			pst.setString(1, chamado.getDescricao());
 			pst.setString(2, ABERTO);
