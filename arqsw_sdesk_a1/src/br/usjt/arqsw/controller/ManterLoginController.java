@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.usjt.arqsw.entity.Login;
+import br.usjt.arqsw.entity.Usuario;
 import br.usjt.arqsw.service.LoginService;
 
 @Controller
@@ -20,7 +20,7 @@ public class ManterLoginController {
 	private LoginService loginService;
 
 	@RequestMapping("/fazer_login")
-	public String login(@Valid Login login, BindingResult result, HttpSession session) {
+	public String login(@Valid Usuario login, BindingResult result, HttpSession session) {
 		try {
 			if (result.hasFieldErrors()) {
 				System.out.println("Deu erro " + result.toString());

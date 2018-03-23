@@ -6,12 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import br.usjt.arqsw.entity.Login;
+import br.usjt.arqsw.entity.Usuario;
 
 /**
  * 
@@ -20,6 +22,13 @@ import br.usjt.arqsw.entity.Login;
  */
 @Repository
 public class LoginDAO {
+	
+//	@PersistenceContext
+//	EntityManager manager;
+//	
+//	public boolean buscarLogin(Login login) throws IOException {
+//		
+//	}
 
 	private Connection conn;
 
@@ -32,7 +41,7 @@ public class LoginDAO {
 		}
 	}
 
-	public boolean buscarLogin(Login login) throws IOException {
+	public boolean buscarLogin(Usuario login) throws IOException {
 		String query = "select * from usuario where username = ? and password = ?";
 		try (PreparedStatement pst = conn.prepareStatement(query)) {
 			pst.setString(1, login.getUsername());

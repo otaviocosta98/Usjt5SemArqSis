@@ -1,13 +1,13 @@
 package br.usjt.arqsw.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +23,7 @@ import br.usjt.arqsw.service.FilaService;
  *
  */
 @Controller
+@Transactional
 public class ManterChamadosController {
 
 	@Autowired
@@ -75,7 +76,7 @@ public class ManterChamadosController {
 			return "Erro";
 		}
 	}
-	
+
 	@RequestMapping("/novo_chamado")
 	public String novoChamado(Model model) {
 		try {
@@ -86,7 +87,7 @@ public class ManterChamadosController {
 			return "Erro";
 		}
 	}
-	
+
 	@RequestMapping("/criar_chamado")
 	public String criarChamado(@Valid Chamado chamado, BindingResult result, Model model) {
 		try {
@@ -98,17 +99,17 @@ public class ManterChamadosController {
 			int numeroChamado = chamadoService.novoChamado(chamado);
 			model.addAttribute("numeroChamado", numeroChamado);
 			return "ChamadoSalvo";
-		}catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			return "Erro";
 		}
 	}
-	
+
 	private List<Fila> listarFilas() throws IOException {
 		return filaService.listarFilas();
 	}
 
-	private ArrayList<Chamado> listarChamados(Fila fila) throws IOException {
+	private List<Chamado> listarChamados(Fila fila) throws IOException {
 		return chamadoService.listarChamados(fila);
 	}
 

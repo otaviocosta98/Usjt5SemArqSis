@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.usjt.arqsw.dao.LoginDAO;
-import br.usjt.arqsw.entity.Login;
+import br.usjt.arqsw.entity.Usuario;
 
 /**
  * 
@@ -19,7 +19,7 @@ public class LoginService {
 	@Autowired
 	private LoginDAO loginRepository;
 
-	public boolean buscarLogin(Login login) throws IOException {
+	public boolean buscarLogin(Usuario login) throws IOException {
 		return loginRepository.buscarLogin(login);
 	}
 
