@@ -9,7 +9,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 		<!-- entidade mapeada -->
 		<class>br.usjt.arqsw.model.Fila</class>
 		<class>br.usjt.arqsw.model.Chamado</class>
-		<class>br.usjt.arqsw.model.Login</class>
+		<class>br.usjt.arqsw.model.Usuario</class>
 		<properties>
 			<!-- dados da conexao -->
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
