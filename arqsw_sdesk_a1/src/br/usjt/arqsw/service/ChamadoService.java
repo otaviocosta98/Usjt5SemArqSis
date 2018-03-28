@@ -31,4 +31,8 @@ public class ChamadoService {
 	public List<Chamado> listarChamados(Fila Fila) throws IOException {
 		return dao.listarChamados(Fila);
 	}
+
+	public List<Chamado> listarChamados() throws IOException {
+		return dao.listarChamados();
+	}
 }

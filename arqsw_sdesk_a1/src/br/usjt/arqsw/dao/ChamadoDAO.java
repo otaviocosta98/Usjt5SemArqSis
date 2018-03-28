@@ -18,12 +18,12 @@ import br.usjt.arqsw.entity.Fila;
  *
  */
 @Repository
+@SuppressWarnings("unchecked")
 public class ChamadoDAO {
 
 	@PersistenceContext
 	EntityManager manager;
 
-	@SuppressWarnings("unchecked")
 	public List<Chamado> listarChamados(Fila fila) throws IOException {
 		fila = manager.find(Fila.class, fila.getId());
 		Query query = manager.createQuery("select c from Chamado c where c.idFila = :fila");
@@ -31,12 +31,16 @@ public class ChamadoDAO {
 		return (List<Chamado>) query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	public int novoChamado(Chamado chamado) throws IOException {
 		manager.persist(chamado);
-		Query query = manager.createQuery("select c from Chamado c");
-		List<Chamado> chamados = (List<Chamado>) query.getResultList();
-		return chamados.get(chamados.size() - 1).getIdChamado();
+//		Query query = manager.createQuery("select c from Chamado c");
+//		List<Chamado> chamados = (List<Chamado>) query.getResultList();
+//		return chamados.get(chamados.size() - 1).getIdChamado();
+		return chamado.getIdChamado();
+	}
+
+	public List<Chamado> listarChamados() throws IOException {
+		return manager.createQuery("select c from Chamado c").getResultList();
 	}
 
 }
