@@ -1,8 +1,7 @@
 package br.usjt.arqsw.controller;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,36 +10,38 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.usjt.arqsw.entity.Usuario;
-import br.usjt.arqsw.service.LoginService;
+import br.usjt.arqsw.service.UsuarioService;
 
+@Transactional
 @Controller
 public class ManterLoginController {
 
 	@Autowired
-	private LoginService loginService;
-
+	private UsuarioService loginService;
+	private String isValidLogin;
+	
 	@RequestMapping("/fazer_login")
 	public String login(@Valid Usuario login, BindingResult result, HttpSession session) {
 		try {
-			if (result.hasFieldErrors()) {
-				System.out.println("Deu erro " + result.toString());
-				return "Login";
-			}
-			boolean isValidLogin = loginService.buscarLogin(login);
+			isValidLogin = loginService.buscarLogin(login);
 			session.setAttribute("usuarioLogado", isValidLogin);
-			if (!isValidLogin) {
-				return "Login";
-			}
 			return "index";
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "Erro";
+		} catch (Exception e) {
+			isValidLogin = "Invalido";
+			session.setAttribute("usuarioLogado", isValidLogin);
+			return "Login";
 		}
 	}
 
 	@RequestMapping("/login")
 	public String login() {
+		return "Login";
+	}
+
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
 		return "Login";
 	}
 

@@ -3,11 +3,12 @@ package br.usjt.arqsw.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,6 @@ import br.usjt.arqsw.service.FilaService;
  *
  */
 @Controller
-@Transactional
 public class ManterChamadosController {
 
 	@Autowired
@@ -88,6 +88,7 @@ public class ManterChamadosController {
 		}
 	}
 
+	@Transactional
 	@RequestMapping("/criar_chamado")
 	public String criarChamado(@Valid Chamado chamado, BindingResult result, Model model) {
 		try {
@@ -105,12 +106,53 @@ public class ManterChamadosController {
 		}
 	}
 
+	@RequestMapping("/listar_filas_fechar")
+	public String listarFilhasFechar(Model model) {
+		try {
+			model.addAttribute("filas", listarFilas());
+			return "ListarFilas";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+
+	@RequestMapping("/listar_chamados_abertos")
+	public String listarChamadosAbertos(@Valid Fila fila, BindingResult result, Model model) {
+		try {
+			fila = filaService.carregar(fila.getId());
+			model.addAttribute("chamadosAbertos", listarChamadosAbertos(fila));
+			model.addAttribute("fila", fila);
+			return "ListarChamadosAbertos";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+
+	@Transactional
+	@RequestMapping("/fechar_chamados")
+	public String fecharChamado(HttpServletRequest request) {
+		try {
+			String[] chamados = request.getParameterValues("chamados");
+			chamadoService.fecharChamados(chamados);
+			return "ChamadoFechado";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+
 	private List<Fila> listarFilas() throws IOException {
 		return filaService.listarFilas();
 	}
 
 	private List<Chamado> listarChamados(Fila fila) throws IOException {
 		return chamadoService.listarChamados(fila);
+	}
+
+	private List<Chamado> listarChamadosAbertos(Fila fila) throws IOException {
+		return chamadoService.listarChamadosAbertos(fila);
 	}
 
 }

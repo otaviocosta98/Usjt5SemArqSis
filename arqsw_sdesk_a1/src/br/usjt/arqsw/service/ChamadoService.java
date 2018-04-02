@@ -1,5 +1,8 @@
 package br.usjt.arqsw.service;
 
+import static br.usjt.arqsw.entity.Chamado.FECHADO;
+import static java.lang.Integer.parseInt;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -30,5 +33,22 @@ public class ChamadoService {
 
 	public List<Chamado> listarChamados(Fila Fila) throws IOException {
 		return dao.listarChamados(Fila);
+	}
+
+	public List<Chamado> listarChamados() throws IOException {
+		return dao.listarChamados();
+	}
+
+	public List<Chamado> listarChamadosAbertos(Fila fila) throws IOException {
+		return dao.listarChamadosAbertos(fila);
+	}
+
+	public void fecharChamados(String[] chamados) throws IOException {
+		for (String idChamado : chamados) {
+			Chamado chamado = dao.carregar(parseInt(idChamado));
+			chamado.setStatus(FECHADO);
+			chamado.setDtFechamento(new Date());
+			dao.fecharChamado(chamado);
+		}
 	}
 }
