@@ -48,6 +48,7 @@ public class ChamadoDAO {
 	}
 
 	public void fecharChamado(Chamado chamado) throws IOException {
+		manager.remove(chamado);
 		manager.merge(chamado);
 
 	}

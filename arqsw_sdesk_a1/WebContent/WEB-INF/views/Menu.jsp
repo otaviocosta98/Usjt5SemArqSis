@@ -14,7 +14,7 @@
                 <ul class="nav navbar-nav navbar-right">
                 	<li><a href="novo_chamado">Criar Chamado</a></li>
                     <li><a href="listar_filas_exibir">Consultar Chamados</a></li>
-                    <li><a href="listar_filas_fechar">Fechar Chamados</a></li>
+                    <li><a href="fechar_chamados">Fechar Chamados</a></li>
                     <li><a href="logout">Logout</a></li>
                 </ul>
             </div>

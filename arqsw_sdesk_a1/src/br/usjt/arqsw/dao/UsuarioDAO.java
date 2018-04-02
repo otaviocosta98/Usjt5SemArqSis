@@ -24,7 +24,7 @@ public class UsuarioDAO {
 				.createQuery("select u from Usuario u where u.username = :username and u.password = :password");
 		query.setParameter("username", usuario.getUsername());
 		query.setParameter("password", usuario.getPassword());
-		return query.getSingleResult() != null ? "Valido" : "Invalido" ;
+		return query.getSingleResult() != null ? "Valido" : "Invalido";
 	}
 
 }

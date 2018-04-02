@@ -21,11 +21,6 @@ import br.usjt.arqsw.entity.Fila;
 import br.usjt.arqsw.service.ChamadoService;
 import br.usjt.arqsw.service.FilaService;
 
-/**
- * 
- * @author Otávio Augusto Soares Costa - 816118924
- *
- */
 @RestController
 public class ManterChamadosRestController {
 
