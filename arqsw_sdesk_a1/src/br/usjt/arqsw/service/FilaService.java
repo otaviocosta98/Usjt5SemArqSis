@@ -27,4 +27,16 @@ public class FilaService {
 	public Fila carregar(int id) throws IOException {
 		return dao.carregar(id);
 	}
+	
+	public Fila criar(Fila fila) throws IOException {
+		return dao.criar(fila);
+	}
+	
+	public void deletar(Fila fila) throws IOException {
+		dao.deletar(fila);
+	}
+	
+	public void alterar(Fila fila) throws IOException {
+		dao.alterar(fila);
+	}
 }
