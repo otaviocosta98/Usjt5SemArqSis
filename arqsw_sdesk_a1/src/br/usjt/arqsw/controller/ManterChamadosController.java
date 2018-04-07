@@ -3,7 +3,6 @@ package br.usjt.arqsw.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.usjt.arqsw.entity.Chamado;
 import br.usjt.arqsw.entity.Fila;
@@ -110,7 +110,7 @@ public class ManterChamadosController {
 	public String listarFilhasFechar(Model model) {
 		try {
 			model.addAttribute("filas", listarFilas());
-			return "ListarFilas";
+			return "ListarFila";
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "Erro";
@@ -132,9 +132,8 @@ public class ManterChamadosController {
 
 	@Transactional
 	@RequestMapping("/fechar_chamados")
-	public String fecharChamado(HttpServletRequest request) {
+	public String fecharChamado(@RequestParam String[] chamados) {
 		try {
-			String[] chamados = request.getParameterValues("chamados");
 			chamadoService.fecharChamados(chamados);
 			return "ChamadoFechado";
 		} catch (IOException e) {

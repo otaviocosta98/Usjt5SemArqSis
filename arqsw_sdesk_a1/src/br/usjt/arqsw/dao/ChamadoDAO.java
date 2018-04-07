@@ -1,6 +1,9 @@
 package br.usjt.arqsw.dao;
 
+import static java.lang.Integer.parseInt;
+
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -47,9 +50,13 @@ public class ChamadoDAO {
 		return (List<Chamado>) query.getResultList();
 	}
 
-	public void fecharChamado(Chamado chamado) throws IOException {
-		manager.remove(chamado);
-		manager.merge(chamado);
+	public void fecharChamado(String[] chamados) throws IOException {
+		for (String idChamado : chamados) {
+			Chamado chamado = carregar(parseInt(idChamado));
+			chamado.setStatus(Chamado.FECHADO);
+			chamado.setDtFechamento(new Date());
+			manager.merge(chamado);
+		}
 
 	}
 

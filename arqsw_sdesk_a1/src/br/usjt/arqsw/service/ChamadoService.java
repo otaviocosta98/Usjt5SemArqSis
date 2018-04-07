@@ -1,7 +1,5 @@
 package br.usjt.arqsw.service;
 
-import static java.lang.Integer.parseInt;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -43,9 +41,6 @@ public class ChamadoService {
 	}
 
 	public void fecharChamados(String[] chamados) throws IOException {
-		for (String idChamado : chamados) {
-			Chamado chamado = dao.carregar(parseInt(idChamado));
-			dao.fecharChamado(chamado);
-		}
+		dao.fecharChamado(chamados);
 	}
 }

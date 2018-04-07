@@ -9,32 +9,52 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Fechar Chamados</title>
+		<title>Listar Filas</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 	</head>
 	<body>
 		<c:import url="Menu.jsp" />
 		<div id="main" class="container">
-			<h3 class="page-header">Fechar Chamados</h3>
-			<form action="listar_chamados_abertos" method="get">
+			<h3 class="page-header">Filas Cadastradas</h3>
+			<c:if test="${empty filas}">
 				<div class="row">
-	                <div class="form-group col-md-4">
-	                    <label for="fila">Escolha a Fila:</label>
-	                    <select class="form-control" name="id">
-	                        <option value="0"></option>
-	                        <c:forEach var="fila" items="${filas}">
-	                            <option value="${fila.id}">${fila.nome}</option>
-	                        </c:forEach>
-	                    </select>
-	                </div>
-	            </div>
-	            <div id="actions" class="row">
-	                <div class="col-md-12">
-	                    <button type="submit" class="btn btn-primary" >Listar Chamados Abertos</button>
-	                </div>
-	            </div>
-			</form>
+    				<div class="col-md-4">
+		    			<p style="padding: 15px; border-radius: 10px;" class="bg-info">Não Há Filas Cadastradas</p>
+		    		</div>
+		    	</div>
+			</c:if>
+			<c:if test="${not empty filas}">
+				<c:if test="${not empty chamadosAbertosFila }">
+					<div class="row">
+    				<div class="col-md-6">
+		    			<p style="padding: 15px; border-radius: 10px;" class="bg-info">Não é Possível Excluir Fila Pois Há Chamados Abertos.</p>
+		    		</div>
+		    	</div>
+				</c:if>
+				<div class="row"> 
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Nome</th>
+								<th>Figura</th>
+								<th>Editar</th>
+								<th>Excluir</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="fila" items="${filas }">
+								<tr>
+									<td>${fila.nome }</td>
+									<td>${fila.caminhoFigura }</td>
+									<td><a href="form_edita_fila?id=${fila.id }" class="button button-primary">Editar</a>
+									<td><a href="excluir_fila?id=${fila.id }" class="button button-danger">Excluir</a>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:if>
 		</div>
 		<script src="js/jquery.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>
