@@ -76,5 +76,16 @@ public class ManterChamadosRestController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "rest/filas")
+	public ResponseEntity<List<Fila>> listarFilas(){
+		try {
+			List<Fila> filas = filaService.listarFilas();
+			return new ResponseEntity<>(filas, HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }
