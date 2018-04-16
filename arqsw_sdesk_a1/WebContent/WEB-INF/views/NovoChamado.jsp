@@ -38,6 +38,17 @@
 	                    </select>
 	                </div>
 	            </div>
+	            <div class="row">
+	                <div class="form-group col-md-4">
+	                    <label for="cliente">Cliente:</label>
+	                    <select class="form-control" name="id_rh">
+	                        <option value="0"></option>
+	                        <c:forEach var="fila" items="${filas}">
+	                            <option value="${fila.id}">${fila.nome}</option>
+	                        </c:forEach>
+	                    </select>
+	                </div>
+	            </div>
 	            <div id="actions" class="row">
 	                <div class="col-md-12">
 	                    <button type="submit" class="btn btn-primary" >Salvar Chamado</button>

@@ -19,12 +19,12 @@ public class UsuarioDAO {
 	@PersistenceContext
 	EntityManager manager;
 
-	public boolean buscarLogin(Usuario usuario) throws Exception {
+	public String buscarLogin(Usuario usuario) throws Exception {
 		Query query = manager
 				.createQuery("select u from Usuario u where u.username = :username and u.password = :password");
 		query.setParameter("username", usuario.getUsername());
 		query.setParameter("password", usuario.getPassword());
-		return query.getSingleResult() != null;
+		return query.getSingleResult() != null ? "Valido" : "Invalido";
 	}
 
 }

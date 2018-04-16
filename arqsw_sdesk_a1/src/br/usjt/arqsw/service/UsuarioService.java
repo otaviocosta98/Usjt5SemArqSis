@@ -17,7 +17,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioDAO loginRepository;
 
-	public boolean buscarLogin(Usuario usuario) throws Exception {
+	public String buscarLogin(Usuario usuario) throws Exception {
 		return loginRepository.buscarLogin(usuario);
 	}
 

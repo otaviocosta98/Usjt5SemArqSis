@@ -12,8 +12,11 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
+					<li><a href="form_criar_fila">Criar Fila</a></li>
+					<li><a href="listar_filas">Listar Filas</a></li>
                 	<li><a href="novo_chamado">Criar Chamado</a></li>
                     <li><a href="listar_filas_exibir">Consultar Chamados</a></li>
+                    <li><a href="listar_filas_fechar">Fechar Chamados</a></li>
                     <li><a href="logout">Logout</a></li>
                 </ul>
             </div>

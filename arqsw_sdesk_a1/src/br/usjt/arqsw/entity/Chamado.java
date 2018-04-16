@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 
  * @author Otávio Augusto Soares Costa - 816118924
@@ -38,6 +40,7 @@ public class Chamado implements Serializable {
 
 	private String status;
 
+	@JsonFormat(pattern="dd/MM/yyyy")
 	@Column(name = "dt_abertura")
 	private Date dtAbertura;
 
@@ -47,6 +50,16 @@ public class Chamado implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_fila")
 	private Fila idFila;
+	
+	private int id_rh;
+
+	public int getId_rh() {
+		return id_rh;
+	}
+
+	public void setId_rh(int id_rh) {
+		this.id_rh = id_rh;
+	}
 
 	public int getIdChamado() {
 		return idChamado;
