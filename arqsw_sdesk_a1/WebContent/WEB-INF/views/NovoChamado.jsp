@@ -43,8 +43,8 @@
 	                    <label for="cliente">Cliente:</label>
 	                    <select class="form-control" name="id_rh">
 	                        <option value="0"></option>
-	                        <c:forEach var="fila" items="${filas}">
-	                            <option value="${fila.id}">${fila.nome}</option>
+	                        <c:forEach var="cliente" items="${clientes}">
+	                            <option value="${cliente.id}">${cliente.first_name} ${cliente.last_name }</option>
 	                        </c:forEach>
 	                    </select>
 	                </div>

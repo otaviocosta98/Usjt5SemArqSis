@@ -44,7 +44,7 @@ public class ManterFilaController {
 
 	@Transactional
 	@RequestMapping("/criar_fila")
-	public String criarFila(@Valid Fila fila, @RequestParam(name = "file") MultipartFile file, BindingResult result) {
+	public String criarFila(@Valid Fila fila, BindingResult result, @RequestParam(name = "file") MultipartFile file) {
 		try {
 			if (result.hasFieldErrors("nome")) {
 				System.out.println("Deu erro " + result.toString());
@@ -116,7 +116,7 @@ public class ManterFilaController {
 			return "Erro";
 		}
 	}
-	
+
 	@RequestMapping("/mostrar_fila")
 	public String mostrarFila(Fila fila, Model model) {
 		try {

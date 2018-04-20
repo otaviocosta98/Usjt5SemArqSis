@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="img">Figura:</label>
-                    <img class="img-responsive" alt="?" src="${fila.caminhoFigura }" >
+                    <img class="img-responsive" alt="?" src="img/${fila.caminhoFigura }" >
                 </div>
             </div>
     	</div>

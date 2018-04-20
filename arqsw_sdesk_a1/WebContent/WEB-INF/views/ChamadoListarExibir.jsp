@@ -34,6 +34,8 @@
 							<th>Abertura</th>
 							<th>Fechamento</th>
 							<th>Status</th>
+							<th>Cliente</th>
+							<th>Figura</th>
 							<th>Tempo</th>
 						</tr>
 					</thead>

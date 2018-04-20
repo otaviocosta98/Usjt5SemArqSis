@@ -17,7 +17,7 @@
 		<c:import url="Menu.jsp" />
 		<div id="main" class="container">
 			<h3 class="page-header">Criar Fila</h3>
-			<form action="criar_fila" method="post">
+			<form action="criar_fila" method="post" enctype="multipart/form-data">
 				<div class="row">
 					<div class="form-group col-md-4">
 						<label for="nome">Nome:</label>
